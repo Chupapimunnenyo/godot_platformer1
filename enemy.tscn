@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://characters/enemies/ant.tscn" type="PackedScene" id=1]
+[ext_resource path="res://audio/digital_sfx/source/pepSound3.ogg" type="AudioStream" id=2]
+[ext_resource path="res://enemy.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+[sub_resource type="AudioStreamRandomPitch" id=2]
+audio_stream = ExtResource( 2 )
+
+[node name="enemy" type="KinematicBody2D"]
+script = ExtResource( 3 )
+
+[node name="sprite" parent="." instance=ExtResource( 1 )]
+position = Vector2( -55.734, -112.259 )
+scale = Vector2( 2.81114, 3.5813 )
+frame = 1
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="visibility_enabler_2d" type="VisibilityEnabler2D" parent="."]
+show_behind_parent = true
+use_parent_material = true
+process_parent = true
+physics_process_parent = true
+
+[node name="Deathsound" type="AudioStreamPlayer" parent="."]
+stream = SubResource( 2 )

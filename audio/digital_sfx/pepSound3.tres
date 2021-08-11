@@ -1,0 +1,6 @@
+[gd_resource type="AudioStreamRandomPitch" load_steps=2 format=2]
+
+[sub_resource type="AudioStreamOGGVorbis" id=1]
+
+[resource]
+audio_stream = SubResource( 1 )

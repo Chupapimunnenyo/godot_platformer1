@@ -1,0 +1,213 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://player.gd" type="Script" id=1]
+[ext_resource path="res://characters/aliens/alien_pink.tscn" type="PackedScene" id=2]
+[ext_resource path="res://audio/digital_sfx/source/phaseJump1.ogg" type="AudioStream" id=3]
+[ext_resource path="res://characters/enemies/bee.tscn" type="PackedScene" id=4]
+[ext_resource path="res://tilesets/abstract_tileset.tres" type="TileSet" id=5]
+[ext_resource path="res://coin.tscn" type="PackedScene" id=6]
+[ext_resource path="res://HUD.gd" type="Script" id=8]
+[ext_resource path="res://interface/fonts/kenvector_future_32.tres" type="DynamicFont" id=9]
+[ext_resource path="res://backgrounds/backgroundColorForest.png" type="Texture" id=10]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 22.5473, 45.1373 )
+
+[sub_resource type="AudioStreamRandomPitch" id=2]
+audio_stream = ExtResource( 3 )
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 23.984
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 150, 100 )
+
+[node name="main" type="Node2D"]
+
+[node name="parallax_background" type="ParallaxBackground" parent="."]
+
+[node name="parallax_layer" type="ParallaxLayer" parent="parallax_background"]
+motion_scale = Vector2( 0.5, 1 )
+motion_mirroring = Vector2( 1024, 0 )
+
+[node name="backgroundColorForest" type="Sprite" parent="parallax_background/parallax_layer"]
+position = Vector2( 1992.94, 79.0817 )
+scale = Vector2( 6.47022, 3.11174 )
+texture = ExtResource( 10 )
+
+[node name="player" type="KinematicBody2D" parent="."]
+position = Vector2( 230, 200 )
+collision_mask = 31
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="camera_2d" type="Camera2D" parent="player"]
+position = Vector2( -230, -200 )
+current = true
+zoom = Vector2( 1.5, 1.5 )
+
+[node name="alien_pink" parent="player" instance=ExtResource( 2 )]
+frame = 1
+playing = true
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="player"]
+position = Vector2( -1.06445, -46.6229 )
+shape = SubResource( 1 )
+
+[node name="phaseJump1" type="AudioStreamPlayer" parent="player"]
+stream = SubResource( 2 )
+
+[node name="bee" type="RigidBody2D" parent="."]
+position = Vector2( 597.619, 20 )
+continuous_cd = 2
+linear_damp = 0.0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="bee"]
+shape = SubResource( 3 )
+
+[node name="bee" parent="bee" instance=ExtResource( 4 )]
+position = Vector2( 0.385498, -0.257278 )
+
+[node name="tile_map2" type="TileMap" parent="."]
+tile_set = ExtResource( 5 )
+collision_friction = 0.0
+format = 1
+tile_data = PoolIntArray( -1310663, 0, 0, -1310662, 0, 0, -1310661, 0, 0, -1310660, 0, 0, -1310659, 0, 0, -1310658, 0, 0, -1310657, 0, 0, -1310656, 0, 0, -1310655, 0, 0, -1310654, 0, 0, -1310653, 0, 0, -1310652, 0, 0, -1310651, 0, 0, -1310650, 0, 0, -1310649, 0, 0, -1310648, 0, 0, -1310647, 0, 0, -1310646, 0, 0, -1310645, 0, 0, -1310644, 0, 0, -1310643, 0, 0, -1310642, 0, 0, -1310641, 0, 0, -1310640, 0, 0, -1310639, 0, 0, -1310638, 0, 0, -1310637, 0, 0, -1310636, 0, 0, -1310635, 0, 0, -1310634, 0, 0, -1310633, 0, 0, -1310632, 0, 0, -1310631, 0, 0, -1245127, 0, 0, -1245095, 0, 0, -1179591, 0, 0, -1179559, 0, 0, -1179558, 0, 0, -1179557, 0, 0, -1179556, 0, 0, -1179555, 0, 0, -1179554, 0, 0, -1179553, 0, 0, -1179552, 0, 0, -1114055, 0, 0, -1114023, 0, 0, -1114016, 0, 0, -1048519, 0, 0, -1048518, 0, 0, -1048517, 0, 0, -1048516, 0, 0, -1048515, 14, 65539, -1048514, 14, 65539, -1048513, 14, 65539, -1048512, 14, 65539, -1048511, 14, 65539, -1048510, 14, 65539, -1048509, 14, 65539, -1048508, 14, 65539, -1048507, 14, 65539, -1048506, 14, 65539, -1048505, 0, 0, -1048504, 0, 0, -1048503, 14, 65539, -1048502, 14, 65539, -1048501, 14, 65539, -1048500, 14, 65539, -1048499, 14, 65539, -1048498, 0, 0, -1048497, 0, 0, -1048496, 0, 0, -1048487, 0, 0, -1048480, 0, 0, -982983, 14, 65539, -982960, 0, 0, -982959, 0, 0, -982951, 0, 0, -982944, 0, 0, -917447, 14, 65539, -917423, 0, 0, -917422, 0, 0, -917415, 0, 0, -917408, 0, 0, -851911, 14, 65539, -851886, 0, 0, -851885, 0, 0, -851879, 0, 0, -851878, 14, 65539, -851877, 14, 65539, -851876, 14, 65539, -851875, 14, 65539, -851874, 14, 65539, -851873, 14, 65539, -851872, 0, 0, -786375, 0, 0, -786349, 0, 0, -786348, 0, 0, -786343, 0, 0, -720839, 0, 0, -720838, 0, 0, -720837, 0, 0, -720836, 0, 0, -720835, 14, 65539, -720834, 14, 65539, -720833, 14, 65539, -720832, 14, 65539, -720831, 0, 0, -720830, 0, 0, -720829, 0, 0, -720828, 0, 0, -720827, 0, 0, -720826, 0, 0, -720825, 0, 0, -720824, 0, 0, -720823, 0, 0, -720822, 0, 0, -720821, 0, 0, -720820, 0, 0, -720819, 14, 65539, -720818, 14, 65539, -720817, 0, 0, -720816, 0, 0, -720815, 0, 0, -720814, 0, 0, -720813, 0, 0, -720812, 0, 0, -720811, 0, 0, -720810, 0, 0, -720809, 0, 0, -720808, 0, 0, -720807, 0, 0, -655303, 14, 65539, -655271, 0, 0, -589767, 14, 65539, -589735, 0, 0, -524231, 14, 65539, -524199, 0, 0, -458695, 0, 0, -458688, 0, 0, -458687, 0, 0, -458686, 0, 0, -458685, 0, 0, -458684, 0, 0, -458683, 0, 0, -458682, 0, 0, -458681, 0, 0, -458680, 0, 0, -458679, 0, 0, -458678, 0, 0, -458677, 0, 0, -458676, 0, 0, -458675, 14, 65539, -458674, 14, 65539, -458673, 0, 0, -458672, 0, 0, -458671, 0, 0, -458670, 0, 0, -458669, 0, 0, -458668, 0, 0, -458667, 0, 0, -458666, 14, 65539, -458665, 14, 65539, -458664, 14, 65539, -458663, 0, 0, -393159, 0, 0, -393158, 14, 65539, -393157, 14, 65539, -393156, 14, 65539, -393127, 0, 0, -262160, 0, 0, -327623, 0, 0, -327620, 14, 65539, -327619, 14, 65539, -327591, 0, 0, -196622, 0, 0, -196621, 0, 0, -196619, 0, 0, -262087, 0, 0, -262083, 14, 65539, -262082, 14, 65539, -262081, 14, 65539, -262055, 0, 0, -131088, 0, 0, -131087, 0, 0, -131082, 0, 0, -196551, 0, 0, -196550, 0, 0, -196549, 0, 0, -196548, 0, 0, -196547, 0, 0, -196546, 0, 0, -196545, 0, 0, -196544, 14, 65539, -196543, 14, 65539, -196542, 14, 65539, -196541, 14, 65539, -196540, 14, 65539, -196539, 0, 0, -196538, 0, 0, -196537, 0, 0, -196536, 0, 0, -196535, 0, 0, -196534, 0, 0, -196533, 14, 65539, -196532, 14, 65539, -196526, 0, 0, -196525, 0, 0, -196524, 0, 0, -196523, 14, 65539, -196522, 14, 65539, -196521, 14, 65539, -196520, 14, 65539, -196519, 0, 0, -65553, 0, 0, -65545, 0, 0, -131072, 0, 4, -131015, 0, 0, -130991, 0, 0, -130990, 0, 0, -130983, 0, 0, -18, 0, 0, -9, 14, 65539, -8, 0, 0, -65536, 0, 0, -65479, 0, 0, -65455, 0, 0, -65447, 0, 0, 65518, 0, 0, 65527, 0, 0, 65529, 0, 0, 0, 0, 131072, 57, 0, 0, 80, 0, 0, 81, 14, 65539, 89, 0, 0, 131063, 0, 0, 65536, 0, 0, 65593, 0, 0, 65616, 0, 0, 65625, 0, 0, 196589, 0, 0, 196599, 0, 0, 131072, 0, 131072, 131129, 0, 0, 131152, 0, 0, 131161, 0, 0, 262124, 0, 0, 262128, 10, 0, 262135, 0, 0, 196608, 0, 0, 196674, 0, 0, 196675, 14, 65539, 196676, 14, 65539, 196677, 14, 65539, 196678, 0, 0, 196679, 14, 65539, 196680, 14, 65539, 196681, 14, 65539, 196682, 14, 65539, 196683, 0, 0, 196684, 0, 0, 196685, 14, 65539, 196686, 14, 65539, 196687, 0, 0, 196688, 0, 0, 196697, 0, 0, 327661, 0, 0, 327664, 10, 1, 327671, 0, 0, 262144, 0, 131072, 262209, 0, 0, 262210, 0, 0, 262233, 0, 0, 393198, 0, 0, 393199, 14, 65539, 393200, 10, 1, 393207, 0, 0, 327680, 0, 0, 327681, 0, 65542, 327682, 0, 2, 327683, 0, 2, 327684, 0, 2, 327685, 0, 2, 327686, 0, 3, 327687, 0, 2, 327688, 0, 1, 327689, 0, 2, 327690, 0, 1, 327691, 0, 2, 327692, 0, 1, 327693, 0, 2, 327694, 0, 0, 327695, 0, 0, 327696, 0, 0, 327744, 0, 0, 327745, -1610612736, 0, 458736, 14, 65539, 458743, 14, 65539, 458744, 14, 65539, 458745, 14, 65539, 393216, 0, 0, 393217, 0, 0, 393218, 0, 0, 393219, 0, 0, 393220, 0, 0, 393221, 0, 0, 393222, 0, 0, 393223, 0, 0, 393224, 0, 0, 393225, 0, 0, 393226, 0, 0, 393227, 0, 0, 393228, 0, 0, 393229, 0, 0, 393232, 0, 0, 393233, 0, 0, 393280, 0, 0, 524273, 14, 65539, 524278, 14, 65539, 458752, 0, 0, 458753, 0, 0, 458754, 0, 0, 458755, 0, 0, 458756, 0, 0, 458757, 0, 0, 458758, 0, 0, 458759, 0, 0, 458760, 0, 0, 458761, 0, 0, 458762, 0, 0, 458763, 0, 0, 458764, 0, 0, 458765, 0, 0, 458769, 0, 0, 458770, 0, 0, 458816, 0, 0, 589810, 14, 65539, 589813, 14, 65539, 524306, 0, 0, 524307, 0, 0, 524308, 0, 0, 524309, 0, 0, 524310, 0, 0, 524311, 0, 0, 524316, 0, 0, 524317, 0, 0, 524318, 0, 0, 524319, 0, 0, 524320, 0, 0, 524323, 0, 0, 524324, 0, 0, 524325, 0, 0, 524326, 0, 0, 524327, 0, 0, 524330, 0, 0, 524331, 0, 0, 524332, 0, 0, 524333, 0, 0, 524334, 0, 0, 524337, 0, 65536, 524338, 0, 65536, 524339, 0, 65536, 524340, 0, 65536, 524345, 14, 65539, 524346, 14, 65539, 524347, 14, 65539, 524348, 14, 65539, 524349, 14, 65539, 524350, 0, 0, 524351, 0, 0, 524352, 0, 0, 524353, 0, 0, 524354, 0, 0, 524355, 14, 65539, 524356, 14, 65539, 524357, 14, 65539, 524358, 0, 0, 524359, 0, 0, 524360, 0, 0, 524361, 0, 0, 524362, 14, 65539, 524363, 0, 0, 524364, 14, 65539, 524365, 14, 65539, 524366, 14, 65539, 524367, 14, 65539, 524368, 0, 0, 524369, 0, 0, 524370, 0, 0, 524371, 0, 0, 524372, 0, 0, 524373, 0, 0, 524374, 14, 65539, 524375, 14, 65539, 524376, 14, 65539, 524377, 0, 0, 655347, 14, 65539, 655348, 14, 65539, 786524, 14, 65539, 786525, 14, 65539, 786526, 14, 65539, 786527, 14, 65539, 786528, 14, 65539 )
+
+[node name="coins" type="Node2D" parent="."]
+
+[node name="coin" parent="coins" instance=ExtResource( 6 )]
+position = Vector2( 3755.63, -1093.2 )
+
+[node name="coin5" parent="coins" instance=ExtResource( 6 )]
+position = Vector2( 454.635, 257.434 )
+
+[node name="coin2" parent="coins" instance=ExtResource( 6 )]
+position = Vector2( 6055.23, -915.357 )
+
+[node name="coin3" parent="coins" instance=ExtResource( 6 )]
+position = Vector2( 3942.51, 409.127 )
+
+[node name="coin4" parent="coins" instance=ExtResource( 6 )]
+position = Vector2( 2403.09, 461.131 )
+
+[node name="enemies" type="Node2D" parent="."]
+position = Vector2( 218.914, 32.0361 )
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource( 8 )
+
+[node name="label" type="Label" parent="HUD"]
+margin_right = 70.0
+margin_bottom = 30.0
+custom_fonts/font = ExtResource( 9 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "SCORE"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="score" type="Label" parent="HUD"]
+margin_left = 160.0
+margin_right = 295.0
+margin_bottom = 36.0
+custom_fonts/font = ExtResource( 9 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "0"
+
+[node name="left_button" type="TouchScreenButton" parent="HUD"]
+visible = false
+self_modulate = Color( 1, 1, 1, 0.54902 )
+position = Vector2( 150, 500 )
+shape = SubResource( 6 )
+passby_press = true
+visibility_mode = 1
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="color_rect" type="ColorRect" parent="HUD/left_button"]
+margin_left = -150.0
+margin_top = -100.0
+margin_right = 150.0
+margin_bottom = 100.0
+color = Color( 0, 0, 1, 0.486275 )
+
+[node name="label2" type="Label" parent="HUD/left_button"]
+margin_left = -50.0
+margin_top = -15.5
+margin_right = 85.0
+margin_bottom = 20.5
+custom_fonts/font = ExtResource( 9 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "LEFT"
+
+[node name="right_button" type="TouchScreenButton" parent="HUD"]
+visible = false
+self_modulate = Color( 1, 1, 1, 0.54902 )
+position = Vector2( 480, 500 )
+shape = SubResource( 6 )
+passby_press = true
+visibility_mode = 1
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="color_rect" type="ColorRect" parent="HUD/right_button"]
+margin_left = -150.0
+margin_top = -100.0
+margin_right = 150.0
+margin_bottom = 100.0
+color = Color( 0, 0, 1, 0.486275 )
+
+[node name="label2" type="Label" parent="HUD/right_button"]
+margin_left = -50.0
+margin_top = -15.5
+margin_right = 85.0
+margin_bottom = 20.5
+custom_fonts/font = ExtResource( 9 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "RIGHT"
+
+[node name="jump_button" type="TouchScreenButton" parent="HUD"]
+visible = false
+self_modulate = Color( 1, 1, 1, 0.54902 )
+position = Vector2( 870, 500 )
+shape = SubResource( 6 )
+passby_press = true
+visibility_mode = 1
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="color_rect" type="ColorRect" parent="HUD/jump_button"]
+margin_left = -150.0
+margin_top = -100.0
+margin_right = 150.0
+margin_bottom = 100.0
+color = Color( 0, 0, 1, 0.486275 )
+
+[node name="label2" type="Label" parent="HUD/jump_button"]
+margin_left = -50.0
+margin_top = -15.5
+margin_right = 85.0
+margin_bottom = 20.5
+custom_fonts/font = ExtResource( 9 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "JUMP"
+[connection signal="pressed" from="HUD/left_button" to="HUD" method="_on_left_button_pressed"]
+[connection signal="released" from="HUD/left_button" to="HUD" method="_on_left_button_released"]
+[connection signal="pressed" from="HUD/right_button" to="HUD" method="_on_right_button_pressed"]
+[connection signal="released" from="HUD/right_button" to="HUD" method="_on_right_button_released"]
+[connection signal="pressed" from="HUD/jump_button" to="HUD" method="_on_jump_button_pressed"]
+[connection signal="released" from="HUD/jump_button" to="HUD" method="_on_jump_button_released"]
